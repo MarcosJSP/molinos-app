@@ -1,12 +1,12 @@
 import { JSX } from 'react'
-import { ChevronDown, Download } from './components/test'
+import { ChevronDownIcon, DownloadIcon } from './components/icons'
 
 function App(): JSX.Element {
   return (
     <>
       <h1 className="text-4xl text-blue-500">Molinos App</h1>
-      <Download className="text-4xl" />
-      <ChevronDown className="text-4xl" />
+      <DownloadIcon className="text-4xl" />
+      <ChevronDownIcon className="text-4xl" />
     </>
   )
 }
