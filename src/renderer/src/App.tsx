@@ -1,5 +1,5 @@
+import { ChevronDownIcon, DownloadIcon } from '@components/icons'
 import { JSX } from 'react'
-import { ChevronDownIcon, DownloadIcon } from './components/icons'
 
 function App(): JSX.Element {
   return (
