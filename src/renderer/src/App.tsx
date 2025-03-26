@@ -1,53 +1,26 @@
-import Canvas from '@components/canvas/Canvas'
-import { DrawCb, OnMouseMoveCb } from '@components/canvas/useCanvas'
-import { scale } from '@renderer/utils/helpers'
+import PlayerWaveVisualizer from '@components/playerWaveVisualizer/PlayerWaveVisualizer'
+import { usePlayerStore } from '@components/playerWaveVisualizer/usePlayerStore'
+
 import { JSX } from 'react'
 
+const amplitudes = Array.from({ length: 100 }, () => Math.floor(Math.random() * 40))
+
+setInterval(() => {
+  let progress = usePlayerStore.getState().progress + 0.1
+  if (progress >= 100) {
+    progress = 0
+  }
+
+  usePlayerStore.setState({ progress })
+}, 1)
+
+usePlayerStore.setState({ amplitudes, progress: 0 })
+
 function App(): JSX.Element {
-  const amplitudes = Array.from({ length: 37 }, () => Math.floor(Math.random() * 40))
-  const canvasHeight = 32
-  const noteWidth = 4
-  const minNoteHeight = 4
-  const gapBetweenNotes = 2
-  const canvasWidth = amplitudes.length * (noteWidth + gapBetweenNotes) - gapBetweenNotes
-
-  const preDraw: DrawCb = (ctx) => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-  }
-
-  const draw: DrawCb = (ctx): void => {
-    const maxAmp = Math.max(...amplitudes)
-
-    ctx.fillStyle = '#000000'
-    amplitudes.forEach((amp, i) => {
-      const x = i * (noteWidth + gapBetweenNotes)
-      const h = scale(amp + minNoteHeight, [0, maxAmp + minNoteHeight], [0, canvasHeight])
-
-      const yOffset = (canvasHeight - h) / 2
-      ctx.beginPath()
-      ctx.rect(x, yOffset, noteWidth, h)
-      ctx.fill()
-    })
-  }
-
-  const onMouseMove: OnMouseMoveCb = (x, y) => {
-    console.log(x, y)
-  }
-  const onMouseLeave = (): void => {
-    console.log('out')
-  }
-
   return (
-    <>
-      <Canvas
-        onDraw={draw}
-        onPreDraw={preDraw}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        width={canvasWidth}
-        height={canvasHeight}
-      />
-    </>
+    <div className="h-screen w-screen bg-[#303236]">
+      <PlayerWaveVisualizer />
+    </div>
   )
 }
 

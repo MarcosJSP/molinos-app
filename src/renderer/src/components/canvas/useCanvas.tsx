@@ -1,14 +1,17 @@
-import { clamp, debounce } from '@renderer/utils/helpers'
+import { adjustCanvasDPI, getMousePosition } from '@components/canvas/helpers'
+import { debounce } from '@renderer/utils/helpers'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 export type DrawCb = (ctx: CanvasRenderingContext2D, delta: number) => void
-export type OnMouseMoveCb = (x: number, y: number, evt: MouseEvent) => void
+export type MouseEventCb = (x: number, y: number, evt: MouseEvent) => void
 
 interface UseCanvasProps {
   onDraw?: DrawCb
   onPreDraw?: DrawCb
-  onMouseMove?: OnMouseMoveCb
-  onMouseLeave?: () => void
+  onMouseMove?: MouseEventCb
+  onMouseEnter?: MouseEventCb
+  onMouseLeave?: MouseEventCb
+  onClick?: MouseEventCb
 }
 interface UseCanvasReturn {
   ref: React.RefObject<HTMLCanvasElement | null>
@@ -17,8 +20,10 @@ interface UseCanvasReturn {
 const useCanvas = ({
   onDraw = (): void => {},
   onPreDraw = (): void => {},
+  onMouseMove = (): void => {},
+  onMouseEnter = (): void => {},
   onMouseLeave = (): void => {},
-  onMouseMove = (): void => {}
+  onClick = (): void => {}
 }: UseCanvasProps): UseCanvasReturn => {
   const ref = useRef<HTMLCanvasElement>(null)
 
@@ -37,8 +42,8 @@ const useCanvas = ({
 
   // Handle Rendering
   useEffect(() => {
-    const { canvas, context } = getCanvasAndContext()
-    if (!canvas || !context) return
+    const { context } = getCanvasAndContext()
+    if (!context) return
 
     let animationFrameId: number
     const render = (delta: DOMHighResTimeStamp): void => {
@@ -54,49 +59,50 @@ const useCanvas = ({
     }
   }, [onDraw, onPreDraw, getCanvasAndContext])
 
-  // Handle Events
   useEffect(() => {
-    const { canvas, context } = getCanvasAndContext()
-    if (!canvas || !context) return
+    const { canvas } = getCanvasAndContext()
+    if (!canvas) return
 
     // Resize Handler
-    const adjustDPI = (): void => {
-      const dpr = window.devicePixelRatio || 1
-      const rect = canvas.getBoundingClientRect()
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
-      context.scale(dpr, dpr)
-    }
-    const handleResize = debounce(adjustDPI, 100)
-
-    // Mouse Move Handler
-    const handleMouseMove = (evt: MouseEvent): void => {
-      const rect = canvas.getBoundingClientRect()
-      const x = clamp(evt.clientX - rect.left, 0, rect.width)
-      const y = clamp(evt.clientY - rect.top, 0, rect.height)
-      onMouseMove(x, y, evt)
+    const handleResize = (): (() => void) => {
+      return debounce(() => adjustCanvasDPI(canvas), 100)
     }
 
-    // Mouse Leave Handler
-    const handleMouseLeave = (): void => {
-      onMouseLeave()
+    // Mouse Event Handler Generator
+    const createMouseEventHandler = (handler: MouseEventCb) => {
+      return (evt: Event): void => {
+        if (!(evt instanceof MouseEvent)) return
+        const [x, y] = getMousePosition(canvas, evt)
+        handler(x, y, evt)
+      }
     }
+
+    // Event Handlers
+    const handleMouseMove = createMouseEventHandler(onMouseMove)
+    const handleMouseEnter = createMouseEventHandler(onMouseEnter)
+    const handleMouseLeave = createMouseEventHandler(onMouseLeave)
+    const handleClick = createMouseEventHandler(onClick)
+
+    // Event Listeners
+    const events = [
+      { target: window, type: 'resize', handler: handleResize },
+      { target: canvas, type: 'mousemove', handler: handleMouseMove },
+      { target: canvas, type: 'mouseenter', handler: handleMouseEnter },
+      { target: canvas, type: 'mouseleave', handler: handleMouseLeave },
+      { target: canvas, type: 'click', handler: handleClick }
+    ]
 
     // Add Event Listeners
-    window.addEventListener('resize', handleResize)
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    events.forEach(({ target, type, handler }) => target.addEventListener(type, handler))
 
     // Initial DPI adjustment
-    adjustDPI()
+    adjustCanvasDPI(canvas)
 
-    // cleanup
+    // Cleanup
     return (): void => {
-      window.removeEventListener('resize', handleResize)
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
+      events.forEach(({ target, type, handler }) => target.removeEventListener(type, handler))
     }
-  }, [getCanvasAndContext, onMouseMove, onMouseLeave])
+  }, [getCanvasAndContext, onMouseMove, onMouseEnter, onMouseLeave, onClick])
 
   return { ref }
 }

@@ -13,3 +13,7 @@ export const clamp = (v: number, min: number, max: number): number => {
 export const scale = (v: number, [inMin, inMax]: number[], [outMin, outMax]: number[]): number => {
   return ((v - inMin) / (inMax - inMin)) * (outMax - outMin) + outMin
 }
+
+export const inRange = (v: number, [min, max]: number[]): boolean => {
+  return v >= min && v <= max
+}
