@@ -46,7 +46,10 @@ const useCanvas = ({
     if (!context) return
 
     let animationFrameId: number
-    const render = (delta: DOMHighResTimeStamp): void => {
+    let lastTs = 0
+    const render = (ts: DOMHighResTimeStamp): void => {
+      const delta = ts - lastTs
+      lastTs = ts
       onPreDraw(context, delta)
       onDraw(context, delta)
       animationFrameId = window.requestAnimationFrame(render)

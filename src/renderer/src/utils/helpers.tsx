@@ -17,3 +17,7 @@ export const scale = (v: number, [inMin, inMax]: number[], [outMin, outMax]: num
 export const inRange = (v: number, [min, max]: number[]): boolean => {
   return v >= min && v <= max
 }
+
+export const lerp = (a: number, b: number, alpha: number): number => {
+  return a + alpha * (b - a)
+}
