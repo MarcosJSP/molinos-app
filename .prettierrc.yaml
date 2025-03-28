@@ -1,6 +1,8 @@
 singleQuote: true
 semi: false
 printWidth: 100
+tabWidth: 2
+tabs: false
 trailingComma: none
 plugins:
   - prettier-plugin-tailwindcss
