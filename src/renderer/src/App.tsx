@@ -1,31 +1,31 @@
-import PlayerAmpVisualizer from '@components/PlayerAmpVisualizer/PlayerAmpVisualizer'
 import { JSX } from 'react'
-import { usePlayerStore } from '@components/PlayerAmpVisualizer/usePlayerStore'
+import PlayerAmpVisualizer from '@components/audioPlayerAudioVisualizer/AudioPlayerAudioVisualizer'
+import { useAudioPlayerStore } from '@renderer/stores/useAudioPlayerStore'
 
-const rand = (length) => Math.floor(Math.random() * length)
+const rand = (length): number => Math.floor(Math.random() * length)
 
 const generateRandomAmplitudes = (length = 100): number[] =>
   Array.from({ length: length }, () => Math.floor(Math.random() * 40))
 
 setInterval(() => {
-  let progress = usePlayerStore.getState().progress + 0.1
+  let progress = useAudioPlayerStore.getState().progress + 0.1
   if (progress >= 100) {
     progress = 0
   }
 
-  usePlayerStore.setState({ progress })
+  useAudioPlayerStore.setState({ progress })
 }, 1)
 
 setInterval(() => {
-  usePlayerStore.setState({
-    amplitudes: generateRandomAmplitudes(100),
+  useAudioPlayerStore.setState({
+    amplitudes: generateRandomAmplitudes(rand(50)),
     progress: 0
   })
 }, 2000)
 
-usePlayerStore.setState({
-  amplitudes: generateRandomAmplitudes(100),
-  progress: 0
+useAudioPlayerStore.setState({
+  amplitudes: generateRandomAmplitudes(rand(50)),
+  progress: 60
 })
 
 function App(): JSX.Element {
