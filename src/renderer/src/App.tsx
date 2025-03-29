@@ -1,6 +1,7 @@
 import { JSX } from 'react'
 import PlayerAmpVisualizer from '@components/audioPlayerAudioVisualizer/AudioPlayerAudioVisualizer'
 import { useAudioPlayerStore } from '@renderer/stores/useAudioPlayerStore'
+import TrackItem from '@components/trackItem/TrackItem'
 
 const rand = (length): number => Math.floor(Math.random() * length)
 
@@ -30,8 +31,18 @@ useAudioPlayerStore.setState({
 
 function App(): JSX.Element {
   return (
-    <div className="h-screen w-screen bg-[#303236]">
-      <PlayerAmpVisualizer />
+    <div className="h-screen w-screen overflow-hidden bg-white">
+      <div className="flex flex-col items-center gap-0.5 px-3.5">
+        <TrackItem />
+        <TrackItem />
+        <TrackItem />
+        <TrackItem />
+        <TrackItem />
+
+        <div className="flex h-16 w-full items-center justify-center bg-[#303236]">
+          <PlayerAmpVisualizer />
+        </div>
+      </div>
     </div>
   )
 }
