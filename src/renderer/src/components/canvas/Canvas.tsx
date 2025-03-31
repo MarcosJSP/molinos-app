@@ -1,4 +1,4 @@
-import useCanvas, { DrawCb, MouseEventCb } from '@components/canvas/useCanvas'
+import useCanvas, { DrawCb, MouseEventCb } from '@/components/canvas/useCanvas'
 import { FC } from 'react'
 
 interface CanvasProps {

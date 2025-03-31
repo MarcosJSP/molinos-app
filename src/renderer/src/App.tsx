@@ -1,7 +1,7 @@
 import { JSX } from 'react'
-import PlayerAmpVisualizer from '@components/audioPlayerAudioVisualizer/AudioPlayerAudioVisualizer'
-import { useAudioPlayerStore } from '@renderer/stores/useAudioPlayerStore'
-import TrackItem from '@components/trackItem/TrackItem'
+import PlayerAmpVisualizer from '@/components/audioPlayerAudioVisualizer/AudioPlayerAudioVisualizer'
+import { useAudioPlayerStore } from '@/stores/useAudioPlayerStore'
+import TrackItem from '@/components/trackItem/TrackItem'
 
 const rand = (length): number => Math.floor(Math.random() * length)
 

@@ -1,5 +1,5 @@
-import { adjustCanvasDPI, getMousePosition } from '@components/canvas/helpers'
-import { debounce } from '@renderer/utils/helpers'
+import { adjustCanvasDPI, getMousePosition } from '@/components/canvas/helpers'
+import { debounce } from '@/utils/helpers'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 export type DrawCb = (ctx: CanvasRenderingContext2D, delta: number) => void

@@ -4,7 +4,7 @@ import {
   SoundNoteIcon,
   StopIcon,
   ThreeDotsIcon
-} from '@components/icons'
+} from '@/components/icons'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
