@@ -1,26 +1,21 @@
+import { cn } from '@/utils/helpers'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
-import { FC } from 'react'
+import { ComponentProps, FC } from 'react'
 
-type TooltipProps = {
-  trigger: React.ReactElement<Record<string, unknown>>
-  content: React.ReactNode
-  delay?: number
-}
-const Tooltip: FC<TooltipProps> = ({
-  trigger: TriggerComponent,
-  content: ContentComponent,
-  delay
+const TooltipProvider = TooltipPrimitive.Provider
+const Tooltip = TooltipPrimitive.Root
+const TooltipTrigger = TooltipPrimitive.Trigger
+const TooltipContent: FC<ComponentProps<typeof TooltipPrimitive.Content>> = ({
+  className,
+  ...props
 }) => (
-  <TooltipPrimitive.Provider delayDuration={delay}>
-    <TooltipPrimitive.Root disableHoverableContent>
-      <TooltipPrimitive.Trigger asChild>{TriggerComponent}</TooltipPrimitive.Trigger>
-      <TooltipPrimitive.Portal>
-        <TooltipPrimitive.Content className="popup px-4" collisionPadding={12}>
-          {ContentComponent}
-        </TooltipPrimitive.Content>
-      </TooltipPrimitive.Portal>
-    </TooltipPrimitive.Root>
-  </TooltipPrimitive.Provider>
+  <TooltipPrimitive.Portal>
+    <TooltipPrimitive.Content
+      className={cn('popup px-4', className)}
+      collisionPadding={12}
+      {...props}
+    ></TooltipPrimitive.Content>
+  </TooltipPrimitive.Portal>
 )
 
-export { Tooltip }
+export { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent }

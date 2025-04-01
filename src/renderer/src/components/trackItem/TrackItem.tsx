@@ -9,7 +9,12 @@ import {
   ThreeDotsIcon
 } from '@/components/icons'
 import { Menu, MenuContent, MenuItem, MenuTrigger } from '@/components/menu/Menu'
-import { Tooltip } from '@/components/tooltip/Tooltip'
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent
+} from '@/components/tooltip/Tooltip'
 import { FC, useState } from 'react'
 import { cn } from '@/utils/helpers'
 
@@ -40,6 +45,22 @@ const TrackActionMore: FC = () => (
       </MenuItem>
     </MenuContent>
   </Menu>
+)
+
+const TrackActionAttribution: FC = () => (
+  <TooltipProvider>
+    <Tooltip delayDuration={400} disableHoverableContent>
+      <TooltipTrigger asChild>
+        <button
+          aria-label="This sound is registered under the Creative Commons 0"
+          className="outline-focus group cursor-help rounded-sm p-2 focus:bg-transparent"
+        >
+          <AttributionCC0Icon className="text-app-gray-600 group-hover:text-app-gray-400 text-xl" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>This sound is registered under the Creative Commons 0</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 )
 
 const TrackItem: FC = () => {
@@ -93,18 +114,7 @@ const TrackItem: FC = () => {
             isActive && 'w-full scale-100 opacity-100'
           )}
         >
-          <Tooltip
-            delay={400}
-            trigger={
-              <button
-                aria-label="This sound is registered under the Creative Commons 0"
-                className="outline-focus group cursor-help rounded-sm p-2 focus:bg-transparent"
-              >
-                <AttributionCC0Icon className="text-app-gray-600 group-hover:text-app-gray-400 text-xl" />
-              </button>
-            }
-            content="This sound is registered under the Creative Commons 0"
-          />
+          <TrackActionAttribution />
         </div>
         <button className="btn outline-focus group">
           <DownloadIcon className="text-app-gray-600 group-hover:text-app-gray-300 group-active:text-app-gray-200 group-focus:text-app-gray-200 text-xl" />
