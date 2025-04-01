@@ -15,7 +15,7 @@
 
   /* Colors */
   --color-app-primary-100: #001133;
-  --color-app-primary-250: #01297f;
+  --color-app-primary-200: #01297f;
   --color-app-primary-500: #0d5bfe;
   --color-app-primary-600: #2a6efe;
   --color-app-primary-800: #a4c1ff;
@@ -24,22 +24,31 @@
   --color-app-black: #000000;
   --color-app-gray-100: #18191b;
   --color-app-gray-200: #303236;
-  --color-app-gray-250: #37393f;
   --color-app-gray-300: #474a52;
-  --color-app-gray-350: #535660;
   --color-app-gray-400: #5f636d;
   --color-app-gray-500: #777c88;
   --color-app-gray-600: #9296a0;
   --color-app-gray-700: #adb0b8;
   --color-app-gray-800: #c9cbcf;
-  --color-app-gray-850: #b3cbff;
   --color-app-gray-900: #e4e5e7;
   --color-app-gray-950: #f1f2f3;
   --color-app-white: #ffffff;
 }
 
 @layer components {
+  .outline-focus {
+    @apply outline-app-primary-500/30 outline-offset-1 focus:outline-2;
+  }
+
   .btn {
-    @apply hover:bg-app-black/5 active:bg-app-black/10 outline-app-primary-500/30 flex cursor-pointer items-center justify-center rounded-sm bg-transparent p-1.5 outline-offset-1 transition-all duration-75 ease-out focus:outline-2;
+    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-sm bg-transparent p-1.5 transition-all duration-100 ease-out;
+  }
+
+  .popover {
+    @apply bg-app-white shadow-app-gray-500/20 border-app-gray-500/30 max-w-[22rem] rounded-sm border px-2 py-1 text-sm break-all opacity-100 shadow-lg duration-200 ease-in-out data-[ending-style]:opacity-0 data-[ending-style]:duration-75 data-[starting-style]:opacity-0 data-[starting-style]:duration-100;
+  }
+
+  .popover-arrow {
+    @apply before:bg-app-white before:border-app-gray-500/30 flex justify-center before:inline-block before:h-2 before:w-2 before:rotate-45 before:rounded-xs before:border-r before:border-b data-[side=bottom]:-top-1 data-[side=bottom]:rotate-180 data-[side=left]:-right-1 data-[side=left]:-rotate-90 data-[side=right]:-left-1 data-[side=right]:rotate-90 data-[side=top]:-bottom-1;
   }
 }
