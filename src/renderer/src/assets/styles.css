@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 @font-face {
   font-family: Sora;
@@ -41,14 +42,10 @@
   }
 
   .btn {
-    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-sm bg-transparent p-1.5 transition-all duration-100 ease-out;
+    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-100 ease-out;
   }
 
-  .popover {
-    @apply bg-app-white shadow-app-gray-500/20 border-app-gray-500/30 max-w-[22rem] rounded-sm border px-2 py-1 text-sm break-all opacity-100 shadow-lg duration-200 ease-in-out data-[ending-style]:opacity-0 data-[ending-style]:duration-75 data-[starting-style]:opacity-0 data-[starting-style]:duration-100;
-  }
-
-  .popover-arrow {
-    @apply before:bg-app-white before:border-app-gray-500/30 flex justify-center before:inline-block before:h-2 before:w-2 before:rotate-45 before:rounded-xs before:border-r before:border-b data-[side=bottom]:-top-1 data-[side=bottom]:rotate-180 data-[side=left]:-right-1 data-[side=left]:-rotate-90 data-[side=right]:-left-1 data-[side=right]:rotate-90 data-[side=top]:-bottom-1;
+  .popup {
+    @apply bg-app-white text-app-gray-300 shadow-app-primary-800/50 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-w-[22rem] rounded-2xl px-2 py-2 text-sm break-all opacity-100 shadow-[0px_4px_12px_rgba(--tw-shadow-color)] outline-0 duration-100;
   }
 }

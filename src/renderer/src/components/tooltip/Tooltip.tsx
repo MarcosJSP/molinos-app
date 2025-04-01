@@ -1,31 +1,26 @@
-import { Tooltip as BaseTooltip } from '@base-ui-components/react/tooltip'
+import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import { FC } from 'react'
 
 type TooltipProps = {
   trigger: React.ReactElement<Record<string, unknown>>
   content: React.ReactNode
   delay?: number
-  closeDelay?: number
 }
 const Tooltip: FC<TooltipProps> = ({
   trigger: TriggerComponent,
   content: ContentComponent,
-  delay,
-  closeDelay
+  delay
 }) => (
-  <BaseTooltip.Provider delay={delay} closeDelay={closeDelay}>
-    <BaseTooltip.Root hoverable={false}>
-      <BaseTooltip.Trigger render={TriggerComponent} />
-      <BaseTooltip.Portal>
-        <BaseTooltip.Positioner>
-          <BaseTooltip.Popup className="popover">
-            <BaseTooltip.Arrow className="popover-arrow" />
-            {ContentComponent}
-          </BaseTooltip.Popup>
-        </BaseTooltip.Positioner>
-      </BaseTooltip.Portal>
-    </BaseTooltip.Root>
-  </BaseTooltip.Provider>
+  <TooltipPrimitive.Provider delayDuration={delay}>
+    <TooltipPrimitive.Root disableHoverableContent>
+      <TooltipPrimitive.Trigger asChild>{TriggerComponent}</TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content className="popup px-4" collisionPadding={12}>
+          {ContentComponent}
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
+    </TooltipPrimitive.Root>
+  </TooltipPrimitive.Provider>
 )
 
 export { Tooltip }
