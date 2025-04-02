@@ -69,7 +69,7 @@ const TrackItem: FC = () => {
   return (
     <div
       className={cn(
-        'group/track hover:bg-app-primary-950 relative flex h-[3.8rem] w-[calc(100%+1rem)] items-center overflow-hidden rounded-xl px-2 transition-colors duration-200',
+        'group/track hover:bg-app-primary-950 relative flex h-[3.8rem] w-[calc(100%+1rem)] shrink-0 items-center overflow-hidden rounded-xl px-2 transition-colors duration-200',
         isActive && '!bg-app-primary-900'
       )}
     >
