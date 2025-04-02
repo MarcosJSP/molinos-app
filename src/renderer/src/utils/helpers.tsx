@@ -1,3 +1,6 @@
+import { ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 export const debounce = (cb: () => void, wait: number) => {
   let timeout: ReturnType<typeof setTimeout>
   return (): void => {
@@ -37,4 +40,8 @@ export const lerpArray = (arr: number[], size: number): number[] => {
     result[i] = lerp(arr[j0], arr[j1], alpha)
   }
   return result
+}
+
+export const cn = (...inputs: ClassValue[]): string => {
+  return twMerge(clsx(inputs))
 }

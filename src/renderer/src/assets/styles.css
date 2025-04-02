@@ -1,1 +1,52 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin 'tailwind-scrollbar';
+
+@font-face {
+  font-family: Sora;
+  font-style: normal;
+  font-optical-sizing: auto;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('fonts/Sora-VariableFont_wght.woff2') format('woff2');
+}
+
+@theme {
+  /* Fonts */
+  --default-font-family: 'Sora', sans-serif;
+
+  /* Colors */
+  --color-app-primary-100: #001133;
+  --color-app-primary-200: #01297f;
+  --color-app-primary-500: #0d5bfe;
+  --color-app-primary-600: #2a6efe;
+  --color-app-primary-800: #a4c1ff;
+  --color-app-primary-900: #d6e4ff;
+  --color-app-primary-950: #f0f5ff;
+  --color-app-black: #000000;
+  --color-app-gray-100: #18191b;
+  --color-app-gray-200: #303236;
+  --color-app-gray-300: #474a52;
+  --color-app-gray-400: #5f636d;
+  --color-app-gray-500: #777c88;
+  --color-app-gray-600: #9296a0;
+  --color-app-gray-700: #adb0b8;
+  --color-app-gray-800: #c9cbcf;
+  --color-app-gray-900: #e4e5e7;
+  --color-app-gray-950: #f1f2f3;
+  --color-app-white: #ffffff;
+}
+
+@layer components {
+  .outline-focus {
+    @apply outline-app-primary-500/30 outline-offset-1 focus:outline-2;
+  }
+
+  .btn {
+    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-100 ease-out;
+  }
+
+  .popup {
+    @apply bg-app-white text-app-gray-300 shadow-app-primary-800/50 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-w-[22rem] rounded-2xl px-2 py-2 text-sm break-all opacity-100 shadow-[0px_4px_12px_rgba(--tw-shadow-color)] outline-0 duration-100;
+  }
+}

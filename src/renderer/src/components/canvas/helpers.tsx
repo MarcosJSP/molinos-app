@@ -1,4 +1,4 @@
-import { clamp } from '@renderer/utils/helpers'
+import { clamp } from '@/utils/helpers'
 
 /**
  * Calculates mouse x and y position relative to the canvas

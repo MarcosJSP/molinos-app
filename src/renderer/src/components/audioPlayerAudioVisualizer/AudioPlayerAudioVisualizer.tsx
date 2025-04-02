@@ -1,8 +1,8 @@
-import Canvas from '@components/canvas/Canvas'
-import { DrawCb } from '@components/canvas/useCanvas'
+import Canvas from '@/components/canvas/Canvas'
+import { DrawCb } from '@/components/canvas/useCanvas'
 import { FC, useLayoutEffect, useMemo, useRef } from 'react'
-import { lerp, lerpArray, scale } from '@renderer/utils/helpers'
-import { useAudioPlayerStore } from '@renderer/stores/useAudioPlayerStore'
+import { lerp, lerpArray, scale } from '@/utils/helpers'
+import { useAudioPlayerStore } from '@/stores/useAudioPlayerStore'
 
 type AudioPlayerAudioVisualizerProps = {
   width?: number

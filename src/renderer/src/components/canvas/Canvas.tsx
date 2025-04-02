@@ -1,4 +1,4 @@
-import useCanvas, { DrawCb, MouseEventCb } from '@components/canvas/useCanvas'
+import useCanvas, { DrawCb, MouseEventCb } from '@/components/canvas/useCanvas'
 import { FC } from 'react'
 
 interface CanvasProps {
@@ -25,7 +25,6 @@ const Canvas: FC<CanvasProps> = ({
   pointerOnHover = true
 }) => {
   const { ref } = useCanvas({ onDraw, onPreDraw, onMouseLeave, onMouseEnter, onMouseMove, onClick })
-
   return (
     <canvas
       ref={ref}
@@ -33,9 +32,6 @@ const Canvas: FC<CanvasProps> = ({
       style={{
         width,
         height,
-        position: 'absolute',
-        left: '100px',
-        top: '300px',
         cursor: pointerOnHover ? 'pointer' : 'default'
       }}
     />
