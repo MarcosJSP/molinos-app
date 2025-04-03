@@ -32,7 +32,7 @@ const Scroll: FC<ComponentProps<'div'>> = ({ className, ...props }) => {
         <div
           className={cn(
             'from-app-primary-200/10 pointer-events-none relative top-0 left-0 block h-[40px] w-full bg-radial to-transparent to-80% bg-[size:100%_120px] bg-[position:0_-80px] bg-no-repeat',
-            top ? 'opacity-0 duration-100' : 'opacity-100 duration-500'
+            top ? 'opacity-0 duration-100' : 'opacity-100 duration-200'
           )}
         />
       </div>
@@ -49,7 +49,7 @@ const Scroll: FC<ComponentProps<'div'>> = ({ className, ...props }) => {
           <div
             className={cn(
               'animate-in fade-in from-app-primary-200/20 pointer-events-none relative -top-[40px] block h-[40px] w-full rotate-180 bg-radial to-transparent to-80% bg-[size:100%_120px] bg-[position:0_-80px] bg-no-repeat',
-              bottom ? 'opacity-0 duration-100' : 'opacity-100 duration-500'
+              bottom ? 'opacity-0 duration-100' : 'opacity-100 duration-200'
             )}
           />
         )}
