@@ -3,6 +3,7 @@ import PlayerAmpVisualizer from '@/components/audioPlayerAudioVisualizer/AudioPl
 import { useAudioPlayerStore } from '@/stores/useAudioPlayerStore'
 import TrackItem from '@/components/trackItem/TrackItem'
 import Scroll from '@/components/scroll/Scroll'
+import AudioPlayer from '@/components/audioPlayer/audioPlayer'
 
 const rand = (length): number => Math.floor(Math.random() * length)
 
@@ -32,7 +33,7 @@ useAudioPlayerStore.setState({
 
 function App(): JSX.Element {
   return (
-    <div className="flex h-screen w-screen max-w-full flex-col overflow-hidden bg-white">
+    <div className="flex h-screen w-screen max-w-full flex-col overflow-hidden bg-white py-2">
       <Scroll className="h-full">
         <div className="flex w-full scroll-p-0 flex-col items-center gap-0.5 px-3.5">
           {Array.from({ length: 50 }).map((_, i) => (
@@ -40,9 +41,7 @@ function App(): JSX.Element {
           ))}
         </div>
       </Scroll>
-      <div className="flex h-16 w-full shrink-0 items-center justify-center bg-[#303236]">
-        <PlayerAmpVisualizer />
-      </div>
+      <AudioPlayer />
     </div>
   )
 }

@@ -46,11 +46,11 @@ const getLightPercentage = ({
 }
 
 const AudioPlayerAudioVisualizer: FC<AudioPlayerAudioVisualizerProps> = ({
-  width = 220,
+  width = 222,
   height = 32,
-  barWidth = 3,
-  minBarHeight = 4,
-  gapBetweenBars = 1
+  barWidth = 4,
+  minBarHeight = 8,
+  gapBetweenBars = 2
 }) => {
   const barCount = useMemo(
     () => Math.floor(width / (barWidth + gapBetweenBars)),

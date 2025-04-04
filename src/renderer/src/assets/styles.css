@@ -16,6 +16,7 @@
   --default-font-family: 'Sora', sans-serif;
 
   /* Colors */
+  --color-*: initial;
   --color-app-primary-100: #001133;
   --color-app-primary-200: #01297f;
   --color-app-primary-500: #0d5bfe;
@@ -35,18 +36,23 @@
   --color-app-gray-900: #e4e5e7;
   --color-app-gray-950: #f1f2f3;
   --color-app-white: #ffffff;
+
+  --shadow-*: initial;
+  --shadow-sm: 0px 0px 4px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
+  --shadow: 0px 4px 12px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
+  --shadow-lg: 0px 8px 24px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
 }
 
 @layer components {
   .outline-focus {
-    @apply outline-app-primary-500/30 outline-offset-1 focus:outline-2;
+    @apply focus:ring-app-primary-800 focus-visible:ring-app-primary-800 ring-0 ring-transparent outline-none focus:ring-3 focus-visible:ring-3;
   }
 
   .btn {
-    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-100 ease-out;
+    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-200 ease-out disabled:cursor-not-allowed disabled:bg-transparent;
   }
 
   .popup {
-    @apply bg-app-white text-app-gray-300 shadow-app-primary-800/50 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-w-[22rem] rounded-2xl px-2 py-2 text-sm break-all opacity-100 shadow-[0px_4px_12px_rgba(--tw-shadow-color)] outline-0 duration-100;
+    @apply bg-app-white text-app-gray-300 animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-40 max-w-[22rem] rounded-2xl px-2 py-2 text-sm break-all opacity-100 shadow outline-0 duration-200;
   }
 }
