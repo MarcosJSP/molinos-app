@@ -38,7 +38,7 @@ function App(): JSX.Element {
       <h2 className="text-app-gray-100 pb-4 text-2xl font-extrabold">Browse</h2>
       <Search />
       <Scroll className="-mx-3.5 h-full">
-        <div className="flex w-full scroll-p-0 flex-col items-center gap-0.5 px-3.5">
+        <div className="flex w-full scroll-p-0 flex-col items-center gap-1 px-3.5">
           {Array.from({ length: 50 }).map((_, i) => (
             <TrackItem key={i} />
           ))}

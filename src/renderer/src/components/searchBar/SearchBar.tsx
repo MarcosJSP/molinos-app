@@ -26,7 +26,7 @@ const SearchBar: FC<ComponentProps<typeof Input>> = ({
   }
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex w-full items-center">
       <SearchIcon className="text-app-gray-600 absolute left-3 text-sm" />
       <Input
         ref={ref}
@@ -34,7 +34,7 @@ const SearchBar: FC<ComponentProps<typeof Input>> = ({
         aria-label="Search"
         type="text"
         onChange={handleOnChange}
-        className={cn('max-h-10 pr-8 pl-8', className)}
+        className={cn('max-h-9 pr-8 pl-8', className)}
         {...props}
       />
       {hasValue && (
