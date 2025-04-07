@@ -4,6 +4,7 @@ import { useAudioPlayerStore } from '@/stores/useAudioPlayerStore'
 import TrackItem from '@/components/trackItem/TrackItem'
 import Scroll from '@/components/scroll/Scroll'
 import AudioPlayer from '@/components/audioPlayer/audioPlayer'
+import Search from '@/components/search/Search'
 
 const rand = (length): number => Math.floor(Math.random() * length)
 
@@ -33,8 +34,10 @@ useAudioPlayerStore.setState({
 
 function App(): JSX.Element {
   return (
-    <div className="flex h-screen w-screen max-w-full flex-col overflow-hidden bg-white py-2">
-      <Scroll className="h-full">
+    <div className="flex h-screen w-screen max-w-full flex-col overflow-hidden bg-white px-3.5 pt-6 pb-2">
+      <h2 className="text-app-gray-100 pb-4 text-2xl font-extrabold">Browse</h2>
+      <Search />
+      <Scroll className="-mx-3.5 h-full">
         <div className="flex w-full scroll-p-0 flex-col items-center gap-0.5 px-3.5">
           {Array.from({ length: 50 }).map((_, i) => (
             <TrackItem key={i} />

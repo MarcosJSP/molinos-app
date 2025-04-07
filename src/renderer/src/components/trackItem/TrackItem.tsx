@@ -76,7 +76,7 @@ const TrackItem: FC = () => {
       <div className="flex w-full items-center justify-start">
         <button
           className={cn(
-            'btn outline-focus bg-app-gray-300 hover:bg-app-gray-200 active:bg-app-gray-100 mr-3 h-8 w-8 shrink-0 p-0 transition-colors',
+            'btn outline-focus bg-app-gray-300 hover:bg-app-gray-200 active:bg-app-gray-100 mr-3 h-8 w-8 shrink-0 p-0 transition-all',
             isActive && 'bg-app-primary-500 hover:bg-app-primary-500 active:bg-app-primary-500'
           )}
           aria-label="play sound"
