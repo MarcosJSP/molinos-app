@@ -41,6 +41,38 @@
   --shadow-sm: 0px 0px 4px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
   --shadow: 0px 4px 12px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
   --shadow-lg: 0px 8px 24px color-mix(in oklab, var(--color-app-primary-200) 40%, transparent);
+
+  --animate-scale-in-100: scale-in 100ms var(--ease-out) forwards;
+  --animate-scale-in-200: scale-in 200ms var(--ease-out) forwards;
+  --animate-scale-in-300: scale-in 300ms var(--ease-out) forwards;
+  --animate-scale-in-500: scale-in 500ms var(--ease-out) forwards;
+  --animate-scale-in-1000: scale-in 1s var(--ease-out) forwards;
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  --animate-scale-out-100: scale-out 100ms var(--ease-out) forwards;
+  --animate-scale-out-200: scale-out 200ms var(--ease-out) forwards;
+  --animate-scale-out-300: scale-out 300ms var(--ease-out) forwards;
+  --animate-scale-out-500: scale-out 500ms var(--ease-out) forwards;
+  --animate-scale-out-1000: scale-out 1s var(--ease-out) forwards;
+  @keyframes scale-out {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(0);
+    }
+  }
 }
 
 @layer components {
