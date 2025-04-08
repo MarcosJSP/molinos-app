@@ -1,3 +1,4 @@
+export { default as AlertIcon } from './AlertIcon'
 export { default as AttributionCC0Icon } from './AttributionCC0Icon'
 export { default as AttributionCCBYIcon } from './AttributionCCBYIcon'
 export { default as AttributionCCBYNCIcon } from './AttributionCCBYNCIcon'
