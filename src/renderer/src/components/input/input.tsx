@@ -12,7 +12,7 @@ const Input: FC<ComponentProps<'input'>> = ({
     <input
       type={type}
       className={cn(
-        'outline-focus border-app-gray-800 hover:border-app-gray-600 placeholder:text-app-gray-600 text-app-gray-300 w-full rounded-lg border px-3 py-2 text-sm font-normal transition-all placeholder:font-light',
+        'outline-focus border-app-gray-800 hover:not-disabled:border-app-gray-600 placeholder:text-app-gray-600 text-app-gray-300 disabled:text-app-gray-500 disabled:bg-app-gray-900 w-full rounded-lg border px-3 py-2 text-sm font-normal transition-all placeholder:font-light disabled:cursor-not-allowed',
         className
       )}
       placeholder={placeholder}

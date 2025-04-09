@@ -1,36 +1,57 @@
+import { Checkbox } from '@/components/checkbox/CheckBox'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
 } from '@/components/collapsible/Collapsible'
 import { FilterIcon } from '@/components/icons'
-import Info from '@/components/info/Info'
-import {
-  MenuCollapsible,
-  MenuCollapsibleCheckbox,
-  MenuCollapsibleContent,
-  MenuCollapsibleTrigger
-} from '@/components/menu/Menu'
+import { Input } from '@/components/input/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover/Popover'
 import SearchActionButton from '@/components/searchActionButton/SearchActionButton'
 import SearchBar from '@/components/searchBar/SearchBar'
+import { Slider } from '@/components/slider/Slider'
+import { Switch } from '@/components/switch/Switch'
 import { Toggle } from '@/components/toggle/Toggle'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
-const SearchFilterTags: FC = () => {
+const MIN_BPM = 0
+const MAX_BPM = 300
+const DEFAULT_BPM = 120
+const DEFAULT_ENABLED = false
+const SearchFilterBpm: FC = () => {
+  const [bpm, setBpm] = useState(DEFAULT_BPM)
+  const [isEnabled, setIsEnabled] = useState(DEFAULT_ENABLED)
+
   return (
-    <MenuCollapsible defaultOpen>
-      <MenuCollapsibleTrigger>Tags</MenuCollapsibleTrigger>
-      <MenuCollapsibleContent className="space-y-1">
-        <div className="mx-4 pb-1" data-radix-collection-item role="menuitem">
-          <SearchBar onKeyDown={(event) => event.stopPropagation()} />
+    <Collapsible>
+      <CollapsibleTrigger>Bpm</CollapsibleTrigger>
+      <CollapsibleContent className="p-4">
+        <div className="text-app-gray-600 mb-4 flex items-center justify-end gap-2">
+          Enable
+          <Switch checked={isEnabled} onCheckedChange={setIsEnabled}></Switch>
         </div>
-
-        <div className="mx-2 max-h-[300px] space-y-1 overflow-y-auto py-1">
-          <MenuCollapsibleCheckbox>Allou</MenuCollapsibleCheckbox>
+        <Input
+          type="number"
+          min={MIN_BPM}
+          max={MAX_BPM}
+          placeholder="Bpm"
+          value={`${bpm}`}
+          onChange={(e) => setBpm(+e.target.value)}
+          disabled={!isEnabled}
+        />
+        <Slider
+          min={MIN_BPM}
+          max={MAX_BPM}
+          value={[bpm]}
+          onValueChange={([v]) => setBpm(v)}
+          disabled={!isEnabled}
+        />
+        <div className="text-app-gray-700 flex justify-between text-xs">
+          <span>{MIN_BPM}</span>
+          <span>{MAX_BPM}</span>
         </div>
-      </MenuCollapsibleContent>
-    </MenuCollapsible>
+      </CollapsibleContent>
+    </Collapsible>
   )
 }
 
@@ -64,6 +85,45 @@ const SearchFilterKeys: FC = () => (
   </Collapsible>
 )
 
+type CheckItemProps = {
+  id: string
+  children: React.ReactNode
+  checked?: boolean
+  onCheckedChange?: (checked: boolean) => void
+}
+const CheckItem: FC<CheckItemProps> = ({ id, checked, children, onCheckedChange }) => {
+  return (
+    <div className="flex">
+      <Checkbox className="my-1.5" id={id} checked={checked} onCheckedChange={onCheckedChange} />
+      <label
+        htmlFor={id}
+        className="text-app-gray-300 cursor-pointer py-1.5 pl-2 text-sm select-none"
+      >
+        {children}
+      </label>
+    </div>
+  )
+}
+
+const SearchFilterTags: FC = () => {
+  return (
+    <Collapsible>
+      <CollapsibleTrigger>Tags</CollapsibleTrigger>
+      <CollapsibleContent className="p-4">
+        <SearchBar className="mb-2"></SearchBar>
+
+        <CheckItem id="1">
+          Sampling+
+          <span className="text-app-gray-700 ml-1 text-[10px]">100</span>
+        </CheckItem>
+        <CheckItem id="2">
+          Creative Commons 0<span className="text-app-gray-700 ml-1 text-[10px]">34</span>
+        </CheckItem>
+      </CollapsibleContent>
+    </Collapsible>
+  )
+}
+
 const SearchFilter: FC = () => {
   return (
     <Popover>
@@ -74,7 +134,9 @@ const SearchFilter: FC = () => {
       </PopoverTrigger>
 
       <PopoverContent className="w-[300px] max-w-[300px] px-0 py-2">
+        <SearchFilterBpm />
         <SearchFilterKeys />
+        <SearchFilterTags />
       </PopoverContent>
     </Popover>
   )
