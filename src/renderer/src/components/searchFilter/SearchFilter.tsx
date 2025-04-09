@@ -1,7 +1,8 @@
 import { Checkbox } from '@/components/checkbox/CheckBox'
 import {
-  Collapsible,
   CollapsibleContent,
+  CollapsibleGroup,
+  CollapsibleGroupItem,
   CollapsibleTrigger
 } from '@/components/collapsible/Collapsible'
 import { FilterIcon } from '@/components/icons'
@@ -12,21 +13,22 @@ import SearchBar from '@/components/searchBar/SearchBar'
 import { Slider } from '@/components/slider/Slider'
 import { Switch } from '@/components/switch/Switch'
 import { Toggle } from '@/components/toggle/Toggle'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 const MIN_BPM = 0
 const MAX_BPM = 300
 const DEFAULT_BPM = 120
 const DEFAULT_ENABLED = false
+const STEP = 1
 const SearchFilterBpm: FC = () => {
   const [bpm, setBpm] = useState(DEFAULT_BPM)
   const [isEnabled, setIsEnabled] = useState(DEFAULT_ENABLED)
 
   return (
-    <Collapsible>
+    <CollapsibleGroupItem defaultOpen>
       <CollapsibleTrigger>Bpm</CollapsibleTrigger>
       <CollapsibleContent className="p-4">
-        <div className="text-app-gray-600 mb-4 flex items-center justify-end gap-2">
+        <div className="text-app-primary-500 mb-4 flex items-center justify-end gap-2">
           Enable
           <Switch checked={isEnabled} onCheckedChange={setIsEnabled}></Switch>
         </div>
@@ -43,6 +45,7 @@ const SearchFilterBpm: FC = () => {
           min={MIN_BPM}
           max={MAX_BPM}
           value={[bpm]}
+          step={STEP}
           onValueChange={([v]) => setBpm(v)}
           disabled={!isEnabled}
         />
@@ -51,12 +54,12 @@ const SearchFilterBpm: FC = () => {
           <span>{MAX_BPM}</span>
         </div>
       </CollapsibleContent>
-    </Collapsible>
+    </CollapsibleGroupItem>
   )
 }
 
 const SearchFilterKeys: FC = () => (
-  <Collapsible>
+  <CollapsibleGroupItem>
     <CollapsibleTrigger>Keys</CollapsibleTrigger>
     <CollapsibleContent className="p-4">
       <div className="flex flex-col items-center justify-center">
@@ -82,7 +85,7 @@ const SearchFilterKeys: FC = () => (
         </div>
       </div>
     </CollapsibleContent>
-  </Collapsible>
+  </CollapsibleGroupItem>
 )
 
 type CheckItemProps = {
@@ -107,7 +110,7 @@ const CheckItem: FC<CheckItemProps> = ({ id, checked, children, onCheckedChange 
 
 const SearchFilterTags: FC = () => {
   return (
-    <Collapsible>
+    <CollapsibleGroupItem>
       <CollapsibleTrigger>Tags</CollapsibleTrigger>
       <CollapsibleContent className="p-4">
         <SearchBar className="mb-2"></SearchBar>
@@ -120,7 +123,7 @@ const SearchFilterTags: FC = () => {
           Creative Commons 0<span className="text-app-gray-700 ml-1 text-[10px]">34</span>
         </CheckItem>
       </CollapsibleContent>
-    </Collapsible>
+    </CollapsibleGroupItem>
   )
 }
 
@@ -134,9 +137,11 @@ const SearchFilter: FC = () => {
       </PopoverTrigger>
 
       <PopoverContent className="w-[300px] max-w-[300px] px-0 py-2">
-        <SearchFilterBpm />
-        <SearchFilterKeys />
-        <SearchFilterTags />
+        <CollapsibleGroup>
+          <SearchFilterBpm />
+          <SearchFilterKeys />
+          <SearchFilterTags />
+        </CollapsibleGroup>
       </PopoverContent>
     </Popover>
   )

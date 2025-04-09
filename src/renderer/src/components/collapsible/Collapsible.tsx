@@ -1,14 +1,17 @@
 import { ChevronDownIcon } from '@/components/icons'
 import { cn } from '@/utils/helpers'
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
-import { FC } from 'react'
+import { createContext, FC, useContext, useEffect, useId, useState } from 'react'
 
-const Collapsible: FC<CollapsiblePrimitive.CollapsibleProps> = ({ className, ...props }) => (
-  <CollapsiblePrimitive.Collapsible
-    className={cn('border-b-app-gray-950 w-full border-b', className)}
-    {...props}
-  />
-)
+const Collapsible: FC<CollapsiblePrimitive.CollapsibleProps> = ({ className, ...props }) => {
+  return (
+    <CollapsiblePrimitive.Collapsible
+      className={cn('border-b-app-gray-950 w-full border-b', className)}
+      {...props}
+    />
+  )
+}
+
 const CollapsibleTrigger: FC<CollapsiblePrimitive.CollapsibleTriggerProps> = ({
   className,
   children,
@@ -36,4 +39,64 @@ const CollapsibleContent: FC<CollapsiblePrimitive.CollapsibleContentProps> = ({
   />
 )
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+// Note: Added useCollapsibleGroupContext so we can have only one collapsible
+// open at a time
+type useCollapsibleGroupContextType = {
+  openId: string
+  toggle: (id: string) => void
+}
+const useCollapsibleGroupContext = (): useCollapsibleGroupContextType => {
+  const [openId, setOpenId] = useState('')
+  const toggle: useCollapsibleGroupContextType['toggle'] = (id) => {
+    if (id == openId) {
+      setOpenId('')
+    } else {
+      setOpenId(id)
+    }
+  }
+  return { openId, toggle }
+}
+const collapsibleGroupContext = createContext<useCollapsibleGroupContextType>(null!)
+const useCollapsibleGroup = (): useCollapsibleGroupContextType =>
+  useContext(collapsibleGroupContext)
+
+const CollapsibleGroup: FC<React.PropsWithChildren> = ({ children }) => {
+  const context = useCollapsibleGroupContext()
+  return (
+    <collapsibleGroupContext.Provider value={context}>{children}</collapsibleGroupContext.Provider>
+  )
+}
+
+const CollapsibleGroupItem: FC<React.ComponentProps<typeof Collapsible>> = ({
+  onOpenChange,
+  defaultOpen,
+  ...props
+}) => {
+  const id = useId()
+  const { openId, toggle } = useCollapsibleGroup()
+
+  useEffect(() => {
+    if (defaultOpen == true) {
+      toggle(id)
+    }
+  }, [defaultOpen, id])
+
+  return (
+    <Collapsible
+      onOpenChange={(open) => {
+        toggle(id)
+        onOpenChange?.(open)
+      }}
+      open={openId == id}
+      {...props}
+    />
+  )
+}
+
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+  CollapsibleGroup,
+  CollapsibleGroupItem
+}
