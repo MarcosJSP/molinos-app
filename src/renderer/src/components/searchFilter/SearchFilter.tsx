@@ -1,16 +1,20 @@
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@/components/collapsible/Collapsible'
 import { FilterIcon } from '@/components/icons'
 import Info from '@/components/info/Info'
 import {
-  Menu,
   MenuCollapsible,
   MenuCollapsibleCheckbox,
   MenuCollapsibleContent,
-  MenuCollapsibleTrigger,
-  MenuContent,
-  MenuTrigger
+  MenuCollapsibleTrigger
 } from '@/components/menu/Menu'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover/Popover'
 import SearchActionButton from '@/components/searchActionButton/SearchActionButton'
 import SearchBar from '@/components/searchBar/SearchBar'
+import { Toggle } from '@/components/toggle/Toggle'
 import { FC } from 'react'
 
 const SearchFilterTags: FC = () => {
@@ -30,19 +34,49 @@ const SearchFilterTags: FC = () => {
   )
 }
 
+const SearchFilterKeys: FC = () => (
+  <Collapsible>
+    <CollapsibleTrigger>Keys</CollapsibleTrigger>
+    <CollapsibleContent className="p-4">
+      <div className="flex flex-col items-center justify-center">
+        <div className="ml-7 grid grid-cols-[repeat(7,1.75rem)] gap-1.5 *:size-7 *:whitespace-nowrap">
+          <Toggle>C#</Toggle>
+          <Toggle>D#</Toggle>
+          <Toggle className="col-start-4">F#</Toggle>
+          <Toggle>G#</Toggle>
+          <Toggle>A#</Toggle>
+        </div>
+        <div className="mt-1.5 grid grid-cols-[repeat(7,1.75rem)] gap-1.5 *:size-7">
+          <Toggle>C</Toggle>
+          <Toggle>D</Toggle>
+          <Toggle>E</Toggle>
+          <Toggle>F</Toggle>
+          <Toggle>G</Toggle>
+          <Toggle>A</Toggle>
+          <Toggle>B</Toggle>
+        </div>
+        <div className="mt-3.5 flex items-center justify-center gap-2">
+          <Toggle>Major</Toggle>
+          <Toggle>Minor</Toggle>
+        </div>
+      </div>
+    </CollapsibleContent>
+  </Collapsible>
+)
+
 const SearchFilter: FC = () => {
   return (
-    <Menu>
-      <MenuTrigger asChild>
+    <Popover>
+      <PopoverTrigger asChild>
         <SearchActionButton aria-label="Filter search results">
           <FilterIcon />
         </SearchActionButton>
-      </MenuTrigger>
+      </PopoverTrigger>
 
-      <MenuContent className="w-[300px] max-w-[300px]">
-        <SearchFilterTags />
-      </MenuContent>
-    </Menu>
+      <PopoverContent className="w-[300px] max-w-[300px] px-0 py-2">
+        <SearchFilterKeys />
+      </PopoverContent>
+    </Popover>
   )
 }
 

@@ -11,7 +11,7 @@ const PopoverContent: FC<PopoverPrimitive.PopoverContentProps> = ({
 }) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
-      className={cn('popup px-4', className)}
+      className={cn('popup overflow-hidden px-4', className)}
       collisionPadding={collisionPadding}
       {...props}
     ></PopoverPrimitive.Content>
