@@ -22,15 +22,9 @@ const SearchSort: FC = () => {
 
       <MenuContent>
         <MenuRadioGroup value={selected} onValueChange={setSelected}>
-          <MenuRadioItem value="a" disableCloseMenu>
-            Relevance
-          </MenuRadioItem>
-          <MenuRadioItem value="b" disableCloseMenu>
-            Duration (longest first)
-          </MenuRadioItem>
-          <MenuRadioItem value="c" disableCloseMenu>
-            Date added (newest first)
-          </MenuRadioItem>
+          <MenuRadioItem value="a">Relevance</MenuRadioItem>
+          <MenuRadioItem value="b">Duration (longest first)</MenuRadioItem>
+          <MenuRadioItem value="c">Date added (newest first)</MenuRadioItem>
         </MenuRadioGroup>
       </MenuContent>
     </Menu>
