@@ -45,3 +45,10 @@ export const lerpArray = (arr: number[], size: number): number[] => {
 export const cn = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs))
 }
+
+export const setInputValue = (input: HTMLInputElement, value: string): void => {
+  const descriptor = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')
+  const nativeInputValueSetter = descriptor?.set
+  nativeInputValueSetter?.call(input, value)
+  input.dispatchEvent(new Event('input', { bubbles: true }))
+}

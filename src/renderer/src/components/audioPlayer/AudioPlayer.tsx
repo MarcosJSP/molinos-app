@@ -82,7 +82,7 @@ const AudioPlayerVolumeControl: FC = () => {
 
 const AudioPlayer: FC = () => {
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-40 relative px-3.5 pt-4 pb-2 duration-250 ease-out">
+    <div className="animate-in fade-in slide-in-from-bottom-40 relative pt-4 pb-2 duration-250 ease-out">
       <div className="bg-app-gray-200 flex w-full items-center justify-between gap-2 rounded-[1.25rem] p-2">
         <AudioPlayerPlayButtons />
         <AudioPlayerAudioVisualizer />
