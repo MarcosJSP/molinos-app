@@ -19,6 +19,7 @@
   --color-*: initial;
   --color-app-primary-100: #001133;
   --color-app-primary-200: #01297f;
+  --color-app-primary-400: #0142cb;
   --color-app-primary-500: #0d5bfe;
   --color-app-primary-600: #2a6efe;
   --color-app-primary-800: #a4c1ff;
@@ -81,7 +82,7 @@
   }
 
   .btn {
-    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-200 ease-out disabled:cursor-not-allowed disabled:bg-transparent;
+    @apply hover:bg-app-black/5 active:bg-app-black/10 flex cursor-pointer items-center justify-center rounded-lg bg-transparent p-1.5 transition-all duration-200 ease-out select-none disabled:cursor-not-allowed disabled:bg-transparent;
   }
 
   .popup {

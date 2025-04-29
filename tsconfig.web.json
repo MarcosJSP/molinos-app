@@ -5,7 +5,6 @@
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.tsx",
     "src/types.d.ts",
-    "src/env.d.ts"
   ],
   "compilerOptions": {
     "composite": true,

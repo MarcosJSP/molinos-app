@@ -52,3 +52,7 @@ export const setInputValue = (input: HTMLInputElement, value: string): void => {
   nativeInputValueSetter?.call(input, value)
   input.dispatchEvent(new Event('input', { bubbles: true }))
 }
+
+export const copyToClipboard = async (text: string): Promise<void> => {
+  return await navigator.clipboard.writeText(text)
+}

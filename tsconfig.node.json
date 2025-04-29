@@ -5,7 +5,7 @@
     "src/main/**/*", 
     "src/preload/**/*", 
     "src/types.d.ts", 
-    "src/env.d.ts"
+    "src/main/env.d.ts"
   ],
   "compilerOptions": {
     "composite": true,
