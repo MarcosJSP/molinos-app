@@ -7,24 +7,27 @@ import BrowserAuth from '@/pages/BrowserAuth'
 import Login from '@/pages/Login'
 import { JSX } from 'react'
 import { HashRouter, Route, Routes } from 'react-router'
+import QueryProvider from '@/providers/queryProvider'
 
 function App(): JSX.Element {
   return (
-    <AuthProvider>
-      <HashRouter>
-        <Routes>
-          <Route element={<UnauthGuard />}>
-            <Route element={<UnauthLayout />}>
-              <Route path="/" element={<Login />} />
-              <Route path="/browser-auth" element={<BrowserAuth />} />
+    <QueryProvider>
+      <AuthProvider>
+        <HashRouter>
+          <Routes>
+            <Route element={<UnauthGuard />}>
+              <Route element={<UnauthLayout />}>
+                <Route path="/" element={<Login />} />
+                <Route path="/browser-auth" element={<BrowserAuth />} />
+              </Route>
             </Route>
-          </Route>
-          <Route element={<AuthGuard />}>
-            <Route path="/browse" element={<Browse />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-    </AuthProvider>
+            <Route element={<AuthGuard />}>
+              <Route path="/browse" element={<Browse />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+      </AuthProvider>
+    </QueryProvider>
   )
 }
 
