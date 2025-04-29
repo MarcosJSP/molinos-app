@@ -1,5 +1,5 @@
-import { AUTH_STATUS } from '@/context/auth/authEnums'
-import useAuth from '@/context/auth/useAuth'
+import { AUTH_STATUS } from '@/providers/authProvider/authEnums'
+import useAuth from '@/providers/authProvider/useAuth'
 import { FC, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 

@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/context/auth/authContext'
+import { AuthProvider } from '@/providers/authProvider/authProvider'
 import AuthGuard from '@/layout/AuthGuard'
 import UnauthGuard from '@/layout/UnauthGuard'
 import UnauthLayout from '@/layout/UnauthLayout'

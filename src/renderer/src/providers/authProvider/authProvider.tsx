@@ -1,4 +1,4 @@
-import { AUTH_STATUS } from '@/context/auth/authEnums'
+import { AUTH_STATUS } from '@/providers/authProvider/authEnums'
 import * as authService from '@/services/auth'
 import { createContext, FC, PropsWithChildren, useLayoutEffect, useState } from 'react'
 
