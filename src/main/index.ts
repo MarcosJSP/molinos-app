@@ -1,19 +1,19 @@
-import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog, session } from 'electron'
 import path from 'node:path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { installExtension, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { getMainWindow, setMainWindow } from './windowManager'
 
+const APP_PROTOCOL = import.meta.env.MAIN_VITE_APP_PROTOCOL
+
 // Register our app to handle MAIN_VITE_APP_PROTOCOL://
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient(import.meta.env.MAIN_VITE_APP_PROTOCOL, process.execPath, [
-      path.resolve(process.argv[1])
-    ])
+    app.setAsDefaultProtocolClient(APP_PROTOCOL, process.execPath, [path.resolve(process.argv[1])])
   }
 } else {
-  app.setAsDefaultProtocolClient(import.meta.env.MAIN_VITE_APP_PROTOCOL)
+  app.setAsDefaultProtocolClient(APP_PROTOCOL)
 }
 
 const gotTheLock = app.requestSingleInstanceLock()
@@ -64,6 +64,7 @@ function createWindow(): void {
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
+
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
@@ -75,11 +76,12 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  // TODO: Only use DevTools if on dev mode
   // Install React DevTools
-  installExtension(REACT_DEVELOPER_TOOLS, {})
-    .then((ext) => console.log(`Added Extension:  ${ext.name}`))
-    .catch((err) => console.log('An error occurred: ', err))
+  if (is.dev) {
+    installExtension(REACT_DEVELOPER_TOOLS, {})
+      .then((ext) => console.log(`Added Extension:  ${ext.name}`))
+      .catch((err) => console.log('An error occurred: ', err))
+  }
 
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
